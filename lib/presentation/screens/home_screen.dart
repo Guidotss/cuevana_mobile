@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guivana/presentation/widgets/widgets.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -26,7 +27,8 @@ class _HomeView extends StatelessWidget {
           backgroundColor: Colors.blueGrey[900],
           floating: true,
           flexibleSpace: const FlexibleSpaceBar(
-            title: Text('Home'),
+            title: CustomAppbar(), 
+            titlePadding: EdgeInsets.all(2),
           ),
         ),
       ],
