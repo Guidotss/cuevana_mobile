@@ -3,9 +3,7 @@ import 'package:guivana/domain/entities/movie.dart';
 import 'package:guivana/presentation/providers/providers.dart';
 
 final moviesSliderProvider = Provider<List<Movie>>((ref) {
-  final popular = ref.watch(popularMoviesProvider.notifier).state;
-
-  print(popular); 
+  final popular = ref.watch(popularMoviesProvider);
   
   if(popular.isNotEmpty){
     return popular.sublist(0, 5);

@@ -1,2 +1,3 @@
 export './shared/custom_appbar.dart'; 
 export 'movies/custom_carousel.dart'; 
+export './shared/full_screen_loader.dart'; 

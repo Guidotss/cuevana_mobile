@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:guivana/presentation/providers/movies/movies_slider.dart';
 import 'package:guivana/presentation/providers/providers.dart';
 import 'package:guivana/presentation/widgets/widgets.dart';
 
@@ -34,7 +33,14 @@ class _HomeViewState extends ConsumerState<_HomeView>{
     }
   @override
   Widget build(BuildContext context) {
-    final sliderMovies = ref.watch(moviesSliderProvider);
+    final isLoading = ref.watch(moviesLoadingProvider);
+    final sliderMovies = ref.watch(moviesSliderProvider); 
+
+
+    if(isLoading){
+      return const FullScreenLoader();
+    }
+
     
     return CustomScrollView(
       slivers:[
@@ -47,17 +53,12 @@ class _HomeViewState extends ConsumerState<_HomeView>{
           ),
         ),
         SliverList(
-          delegate: SliverChildListDelegate(
-            [
-              const SizedBox(height: 10),
-              CustomCarousel(movies: sliderMovies),
-              const SizedBox(height: 10),
-              //TODO const CustomCategories(),
-              const SizedBox(height: 10),
-              //TODO const CustomMovies(),
-              const SizedBox(height: 10),
-            ],
-          ),
+          delegate: SliverChildBuilderDelegate(
+            childCount: 1, 
+            (context, index) {
+              return CustomCarousel(movies: sliderMovies);
+            },
+          )
         ),
       ],
     ); 
