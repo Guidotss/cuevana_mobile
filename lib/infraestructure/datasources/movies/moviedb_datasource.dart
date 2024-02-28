@@ -26,14 +26,16 @@ class MovieDbDataSource implements MovieDatasource {
   }
 
   @override
-  Future<List<Movie>> getMovies({int page = 1}) async {
+  Future<List<Movie>> getPopularMovies({int page = 1}) async {
     try {
       final response =
-          await dio.get('/movie/popular', queryParameters: {'page': page});
+          await dio.get('/movie/popular', queryParameters: {
+            'page': page, 
+          });
 
       return _jsonToMovie(response.data);
-    } catch (erorr) {
-      throw Exception('Error al obtener las peliculas');
+    } catch (error) {
+      throw Exception('Error al obtener las peliculas $error');
     }
   }
 }
