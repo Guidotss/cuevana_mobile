@@ -8,6 +8,7 @@ final popularMoviesProvider =
       fetchMovies: ref.watch(movieRepositoryProvider).getNowPlayingMovies);
 });
 
+
 typedef GetMovieCallBack = Future<List<Movie>> Function();
 
 class MoviesController extends StateNotifier<List<Movie>> {

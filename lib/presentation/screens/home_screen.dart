@@ -14,6 +14,23 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blueGrey[900], 
       body: const _HomeView(),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.movie),
+            label: 'Movies',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.tv),
+            label: 'TV Shows',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+      ),
     ); 
   }
 }
@@ -56,9 +73,17 @@ class _HomeViewState extends ConsumerState<_HomeView>{
           delegate: SliverChildBuilderDelegate(
             childCount: 1, 
             (context, index) {
-              return CustomCarousel(movies: sliderMovies);
+              return Column(
+                children: [
+                  const SizedBox(height: 10),
+                  CustomCarousel(movies: sliderMovies), 
+                  const SizedBox(height: 10),
+                  //TODO const ConstMoviesList(title: 'Popular Movies')
+                  
+                ],
+              ); 
             },
-          )
+          ), 
         ),
       ],
     ); 
