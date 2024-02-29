@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:guivana/domain/entities/movie.dart';
@@ -50,15 +51,24 @@ class _Slide extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: DecoratedBox(
-          decoration: boxDecoration,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
-              fit: BoxFit.cover,
-            ),
+        decoration: boxDecoration,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.network(
+            'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+            fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress != null) {
+                return const Center(child: CircularProgressIndicator()); 
+              }
+              return FadeIn(
+                duration: const Duration(milliseconds: 500),
+                child: child,
+              );
+            },
           ),
         ),
+      ),
     );
   }
 }

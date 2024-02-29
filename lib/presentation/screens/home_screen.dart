@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:guivana/presentation/providers/providers.dart';
+import 'package:guivana/presentation/widgets/movies/horizontal_movie_list.dart';
 import 'package:guivana/presentation/widgets/widgets.dart';
 
 
@@ -46,12 +47,14 @@ class _HomeViewState extends ConsumerState<_HomeView>{
   @override
     initState(){
       super.initState();
-      ref.read(popularMoviesProvider.notifier).getMovies();
+      ref.read(nowPlayingMoviesProvider.notifier).getMovies();
+      ref.read(popularMoviesProvider.notifier).getMovies(); 
     }
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(moviesLoadingProvider);
     final sliderMovies = ref.watch(moviesSliderProvider); 
+    final popularMovies = ref.watch(popularMoviesProvider);
 
 
     if(isLoading){
@@ -78,7 +81,7 @@ class _HomeViewState extends ConsumerState<_HomeView>{
                   const SizedBox(height: 10),
                   CustomCarousel(movies: sliderMovies), 
                   const SizedBox(height: 10),
-                  //TODO const ConstMoviesList(title: 'Popular Movies')
+                  HorizontalMovieList(title: 'Popular', movies: popularMovies),
                   
                 ],
               ); 

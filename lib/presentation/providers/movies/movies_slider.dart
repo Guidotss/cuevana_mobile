@@ -3,10 +3,10 @@ import 'package:guivana/presentation/providers/providers.dart';
 import 'package:guivana/domain/domain.dart';
 
 final moviesSliderProvider = Provider<List<Movie>>((ref) {
-  final popular = ref.watch(popularMoviesProvider);
+  final nowPlaying = ref.watch(nowPlayingMoviesProvider);
   
-  if(popular.isNotEmpty){
-    return popular.sublist(0, 5);
+  if(nowPlaying.isNotEmpty){
+    return nowPlaying.sublist(0, 5);
   }
   return [];
 }); 
