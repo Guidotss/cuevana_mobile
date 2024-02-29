@@ -1,4 +1,4 @@
-import 'package:guivana/infraestructure/models/moviedb_model.dart';
+import 'package:guivana/infraestructure/infraestructure.dart';
 
 class MovieDbResponse {
   MovieDbResponse({

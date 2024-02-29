@@ -1,7 +1,7 @@
 
 
-import 'package:guivana/domain/entities/movie.dart';
-import 'package:guivana/infraestructure/models/moviedb_model.dart';
+import 'package:guivana/domain/domain.dart';
+import 'package:guivana/infraestructure/infraestructure.dart';
 
 class MovieMapper {
   static Movie movieDbToEntity(MovieMovieDB moviedb) => Movie(
