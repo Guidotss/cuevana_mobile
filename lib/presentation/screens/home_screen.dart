@@ -81,8 +81,11 @@ class _HomeViewState extends ConsumerState<_HomeView>{
                   const SizedBox(height: 10),
                   CustomCarousel(movies: sliderMovies), 
                   const SizedBox(height: 10),
-                  HorizontalMovieList(title: 'Popular', movies: popularMovies),
-                  
+                  HorizontalMovieList(
+                    title: 'Popular Movies',
+                    subTitle: 'View all',
+                    movies: popularMovies
+                  ),
                 ],
               ); 
             },
