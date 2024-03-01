@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:guivana/domain/domain.dart';
 import 'package:guivana/presentation/providers/providers.dart';
@@ -13,6 +14,17 @@ final popularMoviesProvider = StateNotifierProvider<MoviesController, List<Movie
     (ref) {
   return MoviesController(
       fetchMovies: ref.watch(movieRepositoryProvider).getPopularMovies);
+});
+
+final upcomingMoviesProvider = StateNotifierProvider<MoviesController, List<Movie>>(
+    (ref) {
+  return MoviesController(
+      fetchMovies: ref.watch(movieRepositoryProvider).getUpcomingMovies);
+});
+
+final topRatedMoviesProvider = StateNotifierProvider<MoviesController, List<Movie>>((ref) {
+  return MoviesController(
+      fetchMovies: ref.watch(movieRepositoryProvider).getTopRatedMovies);
 });
 
 typedef GetMovieCallBack = Future<List<Movie>> Function({int page});

@@ -49,13 +49,17 @@ class _HomeViewState extends ConsumerState<_HomeView>{
       super.initState();
       ref.read(nowPlayingMoviesProvider.notifier).getMovies();
       ref.read(popularMoviesProvider.notifier).getMovies(); 
+      ref.read(upcomingMoviesProvider.notifier).getMovies();
+      ref.read(topRatedMoviesProvider.notifier).getMovies();
     }
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(moviesLoadingProvider);
     final sliderMovies = ref.watch(moviesSliderProvider); 
     final popularMovies = ref.watch(popularMoviesProvider);
-
+    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final upcomingMovies = ref.watch(upcomingMoviesProvider);
+    final topRatedMovies = ref.watch(topRatedMoviesProvider);
 
     if(isLoading){
       return const FullScreenLoader();
@@ -87,6 +91,27 @@ class _HomeViewState extends ConsumerState<_HomeView>{
                     movies: popularMovies, 
                     onNextPage: () => ref.read(popularMoviesProvider.notifier).getMovies(),
                   ),
+                  HorizontalMovieList(
+                    title: 'Now Playing',
+                    subTitle: 'View all',
+                    movies: nowPlayingMovies, 
+                    onNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).getMovies(),
+                  ),
+
+                  HorizontalMovieList(
+                    title: 'Upcoming Movies',
+                    subTitle: 'View all',
+                    movies: upcomingMovies, 
+                    onNextPage: () => ref.read(upcomingMoviesProvider.notifier).getMovies(),
+                  ),
+
+                  HorizontalMovieList(
+                    title: 'Top Rated Movies',
+                    subTitle: 'View all',
+                    movies: topRatedMovies, 
+                    onNextPage: () => ref.read(topRatedMoviesProvider.notifier).getMovies(),
+                  ),
+                  
                 ],
               ); 
             },
