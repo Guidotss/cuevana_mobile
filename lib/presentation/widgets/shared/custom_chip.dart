@@ -14,14 +14,14 @@ class CustomChip extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Container(
         color: Colors.yellow.shade800,
-        height: 40,
-        width: 100,
+        height: 35,
+        width: 80,
         child: TextButton(
           onPressed: () {},
           child: Text(
             label,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 12,
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
