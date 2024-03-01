@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guivana/domain/domain.dart';
+import 'package:guivana/presentation/widgets/widgets.dart';
 
 class HorizontalMovieList extends StatelessWidget {
   final List<Movie> movies;
@@ -35,26 +36,23 @@ class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           title,
           style: const TextStyle(
-            fontSize: 20,
+            fontSize: 30,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
         const Spacer(),
-        Text(
-          subTitle,
-          style: const TextStyle(
-            fontSize: 16,
-            color: Colors.grey,
-          ),
-        ),
+        CustomChip(label: subTitle),
       ],
     );
   }
 }
+
 
 class _CustomListViewItem extends StatelessWidget {
   const _CustomListViewItem();
