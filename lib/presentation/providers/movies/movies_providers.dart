@@ -15,11 +15,11 @@ final popularMoviesProvider = StateNotifierProvider<MoviesController, List<Movie
       fetchMovies: ref.watch(movieRepositoryProvider).getPopularMovies);
 });
 
-typedef GetMovieCallBack = Future<List<Movie>> Function();
+typedef GetMovieCallBack = Future<List<Movie>> Function({int page});
 
 class MoviesController extends StateNotifier<List<Movie>> {
   GetMovieCallBack fetchMovies;
-  int currentPage = 1;
+  int currentPage = 0;
   bool isFetching = false;
 
   MoviesController({required this.fetchMovies}) : super([]);
@@ -29,7 +29,7 @@ class MoviesController extends StateNotifier<List<Movie>> {
     isFetching = true;
 
     currentPage++;
-    List<Movie> movies = await fetchMovies();
+    List<Movie> movies = await fetchMovies(page: currentPage);
     state = [...state, ...movies];
 
     await Future.delayed(const Duration(milliseconds: 200));

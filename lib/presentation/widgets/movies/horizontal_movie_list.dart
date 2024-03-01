@@ -3,18 +3,48 @@ import 'package:flutter/material.dart';
 import 'package:guivana/domain/domain.dart';
 import 'package:guivana/presentation/widgets/widgets.dart';
 
-class HorizontalMovieList extends StatelessWidget {
+class HorizontalMovieList extends StatefulWidget {
   final List<Movie> movies;
   final String title;
   final String subTitle;
-  const HorizontalMovieList(
-      {super.key,
+  final VoidCallback? onNextPage;
+
+
+    const HorizontalMovieList({
+      super.key,
       required this.movies,
       required this.title,
-      required this.subTitle});
+      required this.subTitle, 
+      this.onNextPage, 
+    });
+
+  @override
+  State<HorizontalMovieList> createState() => _HorizontalMovieListState();
+}
+
+class _HorizontalMovieListState extends State<HorizontalMovieList> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
+    initState() {
+      super.initState();
+      scrollController.addListener(() {
+        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 500) {
+          widget.onNextPage!(); 
+        }
+      });
+    }
+
+    @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       height: 500,
       width: double.infinity,
@@ -23,13 +53,14 @@ class HorizontalMovieList extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             margin: const EdgeInsets.only(bottom: 10, top: 10),
-            child: _Title(title: title, subTitle: subTitle),
+            child: _Title(title: widget.title, subTitle: widget.subTitle),
           ),
           Expanded(
             child: ListView.builder(
+              controller: scrollController,
               scrollDirection: Axis.horizontal,
-              itemCount: movies.length,
-              itemBuilder: (context, index) => FadeIn(child: _Slide(movie: movies[index])),
+              itemCount: widget.movies.length,
+              itemBuilder: (context, index) => FadeIn(child: _Slide(movie: widget.movies[index])),
             ),
           ),
         ],
