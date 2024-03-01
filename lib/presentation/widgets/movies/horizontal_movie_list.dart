@@ -9,14 +9,13 @@ class HorizontalMovieList extends StatefulWidget {
   final String subTitle;
   final VoidCallback? onNextPage;
 
-
-    const HorizontalMovieList({
-      super.key,
-      required this.movies,
-      required this.title,
-      required this.subTitle, 
-      this.onNextPage, 
-    });
+  const HorizontalMovieList({
+    super.key,
+    required this.movies,
+    required this.title,
+    required this.subTitle,
+    this.onNextPage,
+  });
 
   @override
   State<HorizontalMovieList> createState() => _HorizontalMovieListState();
@@ -26,25 +25,24 @@ class _HorizontalMovieListState extends State<HorizontalMovieList> {
   final ScrollController scrollController = ScrollController();
 
   @override
-    initState() {
-      super.initState();
-      scrollController.addListener(() {
-        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 500) {
-          widget.onNextPage!(); 
-        }
-      });
-    }
+  initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent - 500) {
+        widget.onNextPage!();
+      }
+    });
+  }
 
-    @override
+  @override
   void dispose() {
     super.dispose();
     scrollController.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       height: 400,
       width: double.infinity,
@@ -60,7 +58,12 @@ class _HorizontalMovieListState extends State<HorizontalMovieList> {
               controller: scrollController,
               scrollDirection: Axis.horizontal,
               itemCount: widget.movies.length,
-              itemBuilder: (context, index) => FadeIn(child: _Slide(movie: widget.movies[index])),
+              itemBuilder: (context, index) => FadeIn(
+                  child: GestureDetector(
+                      onTap: () {
+                        print('tap movie ${widget.movies[index].title}');
+                      },
+                      child: _Slide(movie: widget.movies[index]))),
             ),
           ),
         ],
@@ -115,7 +118,7 @@ class _Slide extends StatelessWidget {
               height: 220,
               fit: BoxFit.cover,
               loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return FadeIn(child: child); 
+                if (loadingProgress == null) return FadeIn(child: child);
 
                 return DecoratedBox(
                   decoration: BoxDecoration(
